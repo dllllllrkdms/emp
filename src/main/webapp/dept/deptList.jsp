@@ -47,25 +47,32 @@
 			box-shadow: 0 0 8px;
 			overflow: hidden;
 		}
-		
+		.cellBtn{
+			width:60px;
+			text-align:center;
+		}
+		th, td{
+			vertical-align: middle;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
 		<div><h1 style="text-align:center">DEPT LIST</h1></div>
-		<div style="float:right">
-			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">부서추가</a>
+		<div style="float:left">
+			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-secondary">부서 추가</a>
 		</div>
+		<br>
 		<br>
 		<div id="div-table">
 			<!-- 부서 목록(부서번호 오름차순) -->
 			<table class="table">
-				<thead class="table-danger" style="border-radius:16px">
+				<thead class="table-danger" >
 					<tr>
 						<th>부서번호</th>
 						<th>부서명</th>
-						<th>수정</th>
-						<th>삭제</th>
+						<th class="cellBtn">수정</th>
+						<th class="cellBtn">삭제</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -75,8 +82,8 @@
 							<tr>
 								<td><%=d.deptNo%></td>
 								<td><%=d.deptName%></td>
-								<td><a href="">수정</a></td>
-								<td><a href="<%=request.getContextPath()%>/dept/deleteDeptForm.jsp?deptNo=<%=d.deptNo%>">삭제</a></td>
+								<td><a href="<%=request.getContextPath()%>/dept/updateDeptForm.jsp?deptNo=<%=d.deptNo%>" class="btn btn-outline-primary cellBtn">수정</a></td>
+								<td><a href="<%=request.getContextPath()%>/dept/deleteDept.jsp?deptNo=<%=d.deptNo%>" class="btn btn-outline-danger cellBtn">삭제</a></td>
 							</tr>
 					<%
 						}

@@ -24,7 +24,7 @@
 </head>
 <body>
 	<div class="container">
-		<div><h1 style="text-align:center">DEPT ADD</h1></div>
+		<div><h1 style="text-align:center">ADD DEPT LIST</h1></div>
 		<form action="<%=request.getContextPath()%>/dept/insertDeptAction.jsp" method="post">
 			<div id="div-table">
 				<table class="table">
@@ -39,7 +39,7 @@
 						<tr>
 							<td><input type="text" name="deptNo" placeholder="d001"></td>
 							<td><input type="text" name="deptName"></td>
-							<td><button type="submit" class="btn btn-outline-success cellBtn">ADD</button>
+							<td><button type="submit" class="btn btn-outline-secondary cellBtn">ADD</button>
 						</tr>
 					</tbody>
 				</table>

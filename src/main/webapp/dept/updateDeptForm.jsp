@@ -43,7 +43,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- custom css -->
-	<link href="../css/dept.css" rel="stylesheet">
+	<link href="../css/style.css" rel="stylesheet">
 	<style>
 		.read-only:focus{
 			background-color: white;
@@ -56,32 +56,33 @@
 </head>
 <body>
 <div class="container">
-		<div>
-			<jsp:include page="/inc/menu.jsp"></jsp:include> 
-		</div>
-		<div><h1>DEPT LIST</h1></div>
-		<div id="warning"><%=msg%></div>
-		<br>
-		<div id="div-table">
-			<form action="<%=request.getContextPath()%>/dept/updateDeptAction.jsp" method="post">
-				<table class="table">
-					<thead class="table-danger">
-						<tr>
-							<th>부서번호</th>
-							<th>부서명</th>
-							<th>&nbsp;</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><input type="text" name="deptNo" value="<%=dept.deptNo%>" readonly=readonly class="read-only"></td>
-							<td><input type="text" name="deptName" value="<%=dept.deptName%>"></td>
-							<td><button type="submit" class="btn btn-outline-primary cellBtn">EDIT</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-		</div>
+	<!-- 중복 영역 처리 메뉴 partial jsp 구성 -->
+	<div>
+		<jsp:include page="/inc/menu.jsp"></jsp:include> 
 	</div>
+	<div><h1>DEPT LIST</h1></div>
+	<div id="warning"><%=msg%></div>
+	<br>
+	<div id="div-table">
+		<form action="<%=request.getContextPath()%>/dept/updateDeptAction.jsp" method="post">
+			<table class="table">
+				<thead class="table-danger">
+					<tr>
+						<th>부서번호</th>
+						<th>부서명</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" name="deptNo" value="<%=dept.deptNo%>" readonly=readonly class="read-only"></td>
+						<td><input type="text" name="deptName" value="<%=dept.deptName%>"></td>
+						<td><button type="submit" class="btn btn-outline-primary cellBtn">EDIT</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
 </body>
 </html>

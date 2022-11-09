@@ -17,7 +17,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- custom css -->
-	<link href="../css/dept.css" rel="stylesheet">
+	<link href="../css/style.css" rel="stylesheet">
 	<style>
 		h1{
 			text-align:center;
@@ -26,6 +26,7 @@
 </head>
 <body>
 	<div class="container">
+		<!-- 중복 영역 처리 메뉴 partial jsp 구성 -->
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include> 
 		</div>

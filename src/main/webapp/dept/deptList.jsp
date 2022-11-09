@@ -12,7 +12,7 @@
 	// 데이터베이스 연결
 	Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/employees","root","java1234"); 
 	// 쿼리 생성 
-	String sql = "SELECT dept_no deptNo, dept_name deptName FROM departments ORDER BY dept_No asc";
+	String sql = "SELECT dept_no deptNo, dept_name deptName FROM departments ORDER BY dept_No desc";
 	PreparedStatement stmt = conn.prepareStatement(sql); 
 	ResultSet rs = stmt.executeQuery(); // <-- 모델 데이터 ResultSet은 일반적,독립적인 타입이 아니다.
 	
@@ -34,39 +34,28 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>DEPTLIST</title>
 	<!-- bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-	<style>
-		a{
-			text-decoration:none;
-		}
-		#div-table{			
-			border-radius:16px;
-			box-shadow: 0 0 8px;
-			overflow: hidden;
-		}
-		.cellBtn{
-			width:60px;
-			text-align:center;
-		}
-		th, td{
-			vertical-align: middle;
-		}
-	</style>
+	<!-- custom css -->
+	<link href="../css/dept.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
+		<!-- 모든 페이지에 똑같이 들어갈 내용 / 메뉴 partial jsp 구성 -->
+		<div>
+			<jsp:include page="/inc/menu.jsp"></jsp:include> <!-- jsp액션태그include 같은 Context안에 있는 /inc/menu.jsp를 부르기 때문에 앞에 안써도됨-->
+		</div>
 		<div><h1 style="text-align:center">DEPT LIST</h1></div>
 		<div style="float:left">
 			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="btn btn-outline-secondary">부서 추가</a>
 		</div>
 		<br>
 		<br>
-		<div id="div-table">
+		<div id="div-table"> <!-- bootstrap css 오버라이딩 -->
 			<!-- 부서 목록(부서번호 오름차순) -->
-			<table class="table">
+			<table class="table table-hover">
 				<thead class="table-danger" >
 					<tr>
 						<th>부서번호</th>

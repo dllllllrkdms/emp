@@ -1,0 +1,32 @@
+@charset "UTF-8";
+#warning{
+	display:inline-block;
+	font-size : larger;
+	border-radius: 5px;
+	font-weight : 700;
+	color: red;
+}
+#div-table{			
+	border-radius:16px;
+	box-shadow: 0 0 8px;
+	overflow: hidden;
+}
+.cellBtn{
+	width:60px;
+	text-align:center;
+}
+.read-only{
+	border: 0;
+	box-shadow:none;
+	background-color:white;
+}
+th,td{
+	vertical-align: middle;
+}
+input:focus{
+	background-color: rgb(200,200,200);
+	outline-color: rgb(200,200,200);
+}
+a{
+	text-decoration: none;	
+}

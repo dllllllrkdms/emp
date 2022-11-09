@@ -1,4 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	// msg 파라메타 값 저장
+	String msg = null;
+	if(request.getParameter("msg")==null){
+		msg = "";
+	} else{
+		msg= "* " +request.getParameter("msg");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,25 +16,23 @@
 	<!-- bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- custom css -->
+	<link href="../css/dept.css" rel="stylesheet">
 	<style>
-		#div-table{			
-			border-radius:16px;
-			box-shadow: 0 0 8px;
-			overflow: hidden;
-		}
-		.cellBtn{
-			width:60px;
+		h1{
 			text-align:center;
-		}
-		th, td{
-			vertical-align: middle;
 		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div><h1 style="text-align:center">ADD DEPT LIST</h1></div>
-		<form action="<%=request.getContextPath()%>/dept/insertDeptAction.jsp" method="post">
+		<div>
+			<jsp:include page="/inc/menu.jsp"></jsp:include> 
+		</div>
+		<div><h1>ADD DEPT LIST</h1></div>
+		<div id="warning"><%=msg%></div>
+		<br>
+			<form action="<%=request.getContextPath()%>/dept/insertDeptAction.jsp" method="post">
 			<div id="div-table">
 				<table class="table">
 					<thead class="table-danger">

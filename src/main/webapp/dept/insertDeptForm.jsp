@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// msg 파라메타 값 저장
-	String msg = null;
-	if(request.getParameter("msg")==null){
-		msg = "";
-	} else{
+	String msg = "";
+	if(request.getParameter("msg")!=null){
 		msg= "* " +request.getParameter("msg");
 	}
 %>

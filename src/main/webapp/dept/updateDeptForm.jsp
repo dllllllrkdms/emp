@@ -5,10 +5,8 @@
 	// 1. 요청 분석
 	String deptNo = request.getParameter("deptNo");
 	//msg 파라메타 값
-	String msg = null;
-	if(request.getParameter("msg")==null){
-		msg = "";
-	} else{
+	String msg = "";
+	if(request.getParameter("msg")!=null){
 		msg= "* " +request.getParameter("msg");
 	}
 	if(deptNo == null){ // updateDeptForm.jsp를 주소창에 직접 호출하면 deptNo는 null이 된다.

@@ -11,7 +11,8 @@
 	if(request.getParameter("msg")!=null){
 		msg = "* "+request.getParameter("msg");
 	}
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	String boardNoStr = request.getParameter("boardNo");
+	int boardNo = Integer.parseInt(boardNoStr);
 	
 	// 2. 요청 처리
 	Class.forName("org.mariadb.jdbc.Driver"); // 드라이버로딩
@@ -48,10 +49,6 @@
 	.btn{
 		background-color: white;
 	}
-	.read-only:focus{
-			background-color: white;
-			outline : none;
-		}
 	</style>
 </head>
 <body>
@@ -59,7 +56,14 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
-		<h1 style="text-align:center">자유 게시판</h1>
+		<h1>자유 게시판</h1>
+		<!-- jsp:include는 jsp:param을 이용하여 값을 넘길 수 있음 ** jsp:param 은 String 값만 넘겨줄 수 있다-->
+		<!-- jsp:include 안에 주석을 달면 오류가 생김(왠지 모르겠음, 됐다가 안됐다가 함.)/value 표현식 안에 인용부호를 쓰면 예외가 생김 -> 검색해서 인용부호예외처리를 하면 되지만 지금은 아예 변수를 만듦 -->
+		<div style="float:left">
+			<jsp:include page="/inc/boardMenu.jsp">
+				<jsp:param name="boardNo" value="<%=boardNoStr%>"/>
+			</jsp:include>
+		</div>
 		<br>
 		<div id="warning"><%=msg%></div>
 		<form action="<%=request.getContextPath()%>/board/deleteBoardAction.jsp" method="post">
@@ -87,7 +91,8 @@
 						</tr>
 						<tr>
 							<td style="font-size:20px; font-weight:600; padding:20px">비밀번호 확인</td>
-							<td><input type="password" name="boardPw" maxlength="50"></td>
+							<td><input type="password" name="boardPw" maxlength="50" required pattern=".*\S.*"></td>
+							<!-- required pattern=".*\S.*" 입력이 없으면 폼이 넘어가지 않게함 -->
 						</tr>
 					</tbody>
 				</table>

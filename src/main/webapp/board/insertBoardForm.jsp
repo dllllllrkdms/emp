@@ -32,7 +32,7 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
-		<h1 style="text-align:center">자유 게시판</h1>
+		<h1>자유 게시판</h1>
 		<br>
 		<form action="<%=request.getContextPath()%>/board/insertBoardAction.jsp" method="post">
 			<div id="div-table">

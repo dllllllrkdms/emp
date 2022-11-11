@@ -12,7 +12,8 @@
 	if(request.getParameter("msg")!=null){
 		msg = "* "+request.getParameter("msg");
 	}
-	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	String boardNoStr = request.getParameter("boardNo");
+	int boardNo = Integer.parseInt(boardNoStr);
 	
 	// 2. 요청 처리
 	Class.forName("org.mariadb.jdbc.Driver"); // 드라이버로딩
@@ -54,10 +55,6 @@
 	.btn{
 		background-color: white;
 	}
-	.read-only:focus{
-			background-color: white;
-			outline : none;
-		}
 	</style>
 </head>
 <body>
@@ -65,7 +62,12 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
-		<h1 style="text-align:center">자유 게시판</h1>
+		<div style="float:left">
+			 <jsp:include page="/inc/boardMenu.jsp">
+			 	<jsp:param name="boardNo" value="<%=boardNo%>"/>
+			 </jsp:include>
+		</div>
+		<h1>자유 게시판</h1>
 		<br>
 		<div id="warning"><%=msg%></div>
 		<form action="<%=request.getContextPath()%>/board/updateBoardAction.jsp" method="post">

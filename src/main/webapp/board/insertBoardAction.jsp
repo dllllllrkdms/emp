@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="java.net.*"%>
 <%
 	// 1. 요청 분석
 	request.setCharacterEncoding("UTF-8");
@@ -8,7 +9,7 @@
 	String boardPw = request.getParameter("boardPw");
 	String boardWriter = request.getParameter("boardWriter");
 	if(boardTitle==null || boardTitle.equals("") || boardContent==null || boardContent.equals("") || boardPw==null || boardPw.equals("") || boardWriter==null || boardWriter.equals("")){
-		String msg = "입력이 잘못되었습니다";
+		String msg = URLEncoder.encode("입력이 잘못되었습니다","UTF-8");
 		response.sendRedirect(request.getContextPath()+"/board/insertBoardForm.jsp?msg="+msg);
 		return;
 	}

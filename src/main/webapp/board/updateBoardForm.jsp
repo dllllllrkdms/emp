@@ -4,6 +4,7 @@
 <%@ page import="vo.*"%>
 <%
 	// 1. 요청 분석
+	request.setCharacterEncoding("UTF-8");
 	if(request.getParameter("boardNo")==null){
 		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 		return;
@@ -12,6 +13,7 @@
 	if(request.getParameter("msg")!=null){
 		msg = "* "+request.getParameter("msg");
 	}
+	//System.out.println(msg+"<-- updateBoardForm msg");
 	String boardNoStr = request.getParameter("boardNo");
 	int boardNo = Integer.parseInt(boardNoStr);
 	
@@ -52,9 +54,6 @@
 	input:focus,textarea:focus{
 		background-color: white;
 	}
-	.btn{
-		background-color: white;
-	}
 	</style>
 </head>
 <body>
@@ -62,23 +61,23 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
-		<div style="float:left">
-			 <jsp:include page="/inc/boardMenu.jsp">
-			 	<jsp:param name="boardNo" value="<%=boardNo%>"/>
-			 </jsp:include>
-		</div>
 		<h1>자유 게시판</h1>
-		<br>
-		<div id="warning"><%=msg%></div>
-		<form action="<%=request.getContextPath()%>/board/updateBoardAction.jsp" method="post">
-			<div id="div-table">
+		<div style="float:left">
+			 <jsp:include page="/inc/boardMenu.jsp"></jsp:include>
+			 <span id="warning"><%=msg%></span>
+		</div>
+		<div id="div-table">
+			<form action="<%=request.getContextPath()%>/board/updateBoardAction.jsp" method="post">
 				<input type="hidden" name="boardNo" value="<%=board.boardNo%>">
 				<table class="table">
 					<thead>
 						<tr>
 							<th colspan="2" style="padding: 20px" class="table-success">
 								<span style="float:left; font-size:30px;">글쓰기</span>
-								<span style="float:right"><button type="submit" class="btn btn-outline-secondary">등록</button></span>
+								<span style="float:right">
+									<button type="submit" class="btn btn-primary">등록</button>
+									<a class="btn btn-outline-primary" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>">취소</a>
+								</span>
 							</th>
 						</tr>
 					</thead>
@@ -87,7 +86,7 @@
 							<td colspan="2"><input type="text" name="boardTitle" value="<%=board.boardTitle%>" maxlength="500"></td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea cols="100" rows="10" name="boardContent"><%=board.boardContent%></textarea></td>
+							<td colspan="2"><textarea cols="100" rows="10" name="boardContent" style="resize: none"><%=board.boardContent%></textarea></td>
 						</tr>
 						<tr>
 							<td style="font-size:20px; font-weight:600; padding:20px">작성자</td>
@@ -99,8 +98,8 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

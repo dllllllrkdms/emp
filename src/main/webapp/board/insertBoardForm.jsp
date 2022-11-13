@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// 요청 분석 
-	String msg = request.getParameter("msg");
+	String msg = "";
+	if(request.getParameter("msg")!=null){
+		msg = request.getParameter("msg");
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -22,9 +25,6 @@
 	input:focus,textarea:focus{
 		background-color: white;
 	}
-	.btn{
-		background-color: white;
-	}
 </style>
 </head>
 <body>
@@ -33,15 +33,19 @@
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
 		<h1>자유 게시판</h1>
-		<br>
-		<form action="<%=request.getContextPath()%>/board/insertBoardAction.jsp" method="post">
-			<div id="div-table">
+		<div style="float:left">
+			<a href="<%=request.getContextPath()%>/board/boardList.jsp" class="btn btn-secondary">목록</a>
+			<span id="warning"><%=msg%></span>
+		</div>
+		
+		<div id="div-table">
+			<form action="<%=request.getContextPath()%>/board/insertBoardAction.jsp" method="post">
 				<table class="table">
 					<thead>
 						<tr>
 							<th colspan="2" style="padding: 20px" class="table-success">
 								<span style="float:left; font-size:30px;">글쓰기</span>
-								<span style="float:right"><button type="submit" class="btn btn-outline-secondary">등록</button></span>
+								<span style="float:right"><button type="submit" class="btn btn-primary">등록</button></span>
 							</th>
 						</tr>
 					</thead>
@@ -62,8 +66,8 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

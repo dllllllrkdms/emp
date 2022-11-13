@@ -81,13 +81,12 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
+		
 		<h1>자유 게시판</h1> 
 		<!-- 3-1 모델데이터(ArrayList<Board> 출력 -->
 		<div style="float:left">
-			<a href="<%=request.getContextPath()%>/board/insertBoardForm.jsp" class="btn btn-outline-secondary">글쓰기</a>
+			<jsp:include page="/inc/boardMenu.jsp"></jsp:include>
 		</div>
-		<br>
-		<br>
 		<div id="div-table">
 			<table class="table table-hover">
 				<thead class="table-success">

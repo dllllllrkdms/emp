@@ -4,6 +4,10 @@
 <%@ page import="vo.*"%>
 <%
 	// 1. 요청 분석
+	if(request.getParameter("boardNo")==null || request.getParameter("boardNo").equals("")){
+		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
+		return;
+	}
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	String boardPw = request.getParameter("boardPw");
 	if(boardPw == null){ //|| boardPw.equals("") 비밀번호가 공백으로 넘어오면 어차피 요청 처리에서 비밀번호가 틀려서 삭제되지 않기 때문에 써도되고, 안써도됨 + 입력하지 않으면 넘어오지 않게 막아둠
@@ -24,7 +28,7 @@
 		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 	} else{
 		//System.out.println("삭제 실패");
-		String msg = URLEncoder.encode("다시 입력해주세요","UTF-8"); // 삭제 실패시에 보낼 메세지, get방식으로 보낼때 한글깨짐 방지
+		String msg = URLEncoder.encode(" 비밀번호를 입력해주세요.","UTF-8"); // 삭제 실패시에 보낼 메세지, get방식으로 보낼때 한글깨짐 방지
 		response.sendRedirect(request.getContextPath()+"/board/deleteBoardForm.jsp?boardNo="+boardNo+"&msg="+msg);
 		return;
 	}

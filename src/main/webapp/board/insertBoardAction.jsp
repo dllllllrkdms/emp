@@ -25,14 +25,16 @@
 	insertStmt.setString(4, boardWriter);
 	int row = insertStmt.executeUpdate();
 	if(row==1){
-		System.out.println("추가 성공");
+		//System.out.println("추가 성공");
+		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 	}else{
-		System.out.println("추가 실패");
+		//System.out.println("추가 실패");
+		String msg =URLEncoder.encode(" * 다시 작성해주세요.","UTF-8");
+		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp?msg="+msg);
 	}
 	
 	
 	
 	
-	response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 	// 3. 결과 출력
 %>

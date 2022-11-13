@@ -2,18 +2,25 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="vo.*"%>
-<%@ page import="java.net.URLEncoder"%>
+<%@ page import="java.net.*"%>
 <%
 	// 1. 요청 분석
+	if(request.getParameter("boardNo")==null){ // boardNo가 안넘어왔을 때 방어코드
+		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
+		return;
+	}
+	if(request.getParameter("boardTitle")==null || request.getParameter("boardTitle").equals("") ||  request.getParameter("boardContent")==null ||  // 아무 내용이 없게 수정했을때
+		request.getParameter("boardContent").equals("") || request.getParameter("boardPw")==null || request.getParameter("boardPw").equals("")){
+		String msg = URLEncoder.encode("빈칸을 입력해주세요.","UTF-8");
+		response.sendRedirect(request.getContextPath()+"/board/updateBoardForm.jsp?boardNo="+request.getParameter("boardNo")+"&msg="+msg);
+		return;
+	}
 	request.setCharacterEncoding("UTF-8");
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	String boardTitle = request.getParameter("boardTitle");
 	String boardContent = request.getParameter("boardContent");
 	String boardPw = request.getParameter("boardPw");
-	if(request.getParameter("boardNo")==null || boardTitle==null || boardTitle.equals("") || boardContent==null || boardContent.equals("") || boardPw==null || boardPw.equals("")){
-		response.sendRedirect(request.getContextPath()+"/board/updateBoardForm.jsp");
-		return;
-	}
+	
 	
 	// 2. 요청 처리
 	Class.forName("org.mariadb.jdbc.Driver"); // 드라이버로딩
@@ -32,11 +39,9 @@
 		System.out.println("수정 실패");
 		msg = URLEncoder.encode("다시 입력해주세요","UTF-8");
 		response.sendRedirect(request.getContextPath()+"/board/updateBoardForm.jsp?boardNo="+boardNo+"&msg="+msg);
-		return;
 	}
 	
 	
 	
 	// 3. 결과출력
-	response.sendRedirect(request.getContextPath()+"/board/boardList.jsp"); // 따로 결과가 없음 
 %>

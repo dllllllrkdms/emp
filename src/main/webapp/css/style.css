@@ -1,18 +1,19 @@
 @charset "UTF-8";
 #warning{
-	display:inline-block;
 	font-size : 16px;
-	font-weight : 500;
+	font-weight : 700;
 	color: red;
 }
 #div-table{			
 	border-radius:16px;
 	box-shadow: 0 0 8px;
 	overflow: hidden;
+	margin-top: 70px;
 }
 .cellBtn{
 	white-space:nowrap;
 	text-align:center;
+	width: 5%;
 }
 .read-only{
 	border: 0;
@@ -23,7 +24,10 @@
 	background-color: white;
 	outline : none;
 }
-th,td{
+.btn-outline-primary{
+	background-color: white;
+}
+d{
 	vertical-align: middle;
 }
 input:focus, textarea:focus{

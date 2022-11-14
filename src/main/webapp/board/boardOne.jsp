@@ -168,7 +168,7 @@
 			</table>
 		</div>
 		<!-- 댓글 페이징 -->
-		<nav aria-label="Page navigation">
+		<div>
 			<ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=1">처음</a></li>
 				<%
@@ -188,7 +188,7 @@
 				%>
 				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=lastPage%>">마지막으로</a></li>
 			</ul>
-		</nav>
+		</div>
 	</div>
 </body>
 </html>

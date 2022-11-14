@@ -5,11 +5,15 @@
 <%
 	// 1. 요청분석
 	request.setCharacterEncoding("UTF-8");
-	String search = request.getParameter("search"); // 검색어
 	int currentPage = 1; // 기본값 : 1페이지
 	if(request.getParameter("currentPage")!=null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
+	String search = "";
+	if(request.getParameter("search")!=null){
+		search = request.getParameter("search"); // 검색어
+	}
+	
 	// 2. 요청처리
 	int rowPerPage = 10; // 한페이지당 볼 행의 개수
 	int beginRow = (currentPage-1)*rowPerPage; // 
@@ -41,12 +45,12 @@
 		currentPage = lastPage;
 	}
 	final int PAGE_COUNT = 10; // 하단에 보여질 페이지 개수
-	int startPage = (currentPage-1)/PAGE_COUNT+1; // 하단에 보여지는 페이지중 가장 첫번째 수 1, 11, 21,.../0, 10, 20로 시작하지 않기 위한 +1/ 현재페이지와 endpage가 같을 때를 생각해서 -1, 
+	int startPage = (currentPage-1)/PAGE_COUNT*PAGE_COUNT+1; // 하단에 보여지는 페이지중 가장 첫번째 수 1, 11, 21,.../0, 10, 20로 시작하지 않기 위한 +1/ 현재페이지와 endpage가 같을 때를 생각해서 -1, 
 	int endPage = startPage + PAGE_COUNT -1; // 마지막 수가 10 20 30 으로 끝나게 하기 위한 -1
 	if(lastPage < endPage){ // 가장 마지막 페이지는 endPage가 lastPage로 짤리게 설정
 		endPage = lastPage; 
 	}
-	// 사원 목록 출력
+	// 2-2 사원 목록 출력
 	String empSql = null;
 	PreparedStatement empStmt = null;
 	if(search==null){
@@ -98,7 +102,7 @@
 				<jsp:include page="/inc/menu.jsp"></jsp:include>
 			</div>
 			<div><h1 style="text-align:center">EMP LIST</h1></div>
-			<div>
+			<div style="float:right">
 				<form action="<%=request.getContextPath()%>/emp/empList.jsp" method="post">
 					<input type="text" name="search">
 					<button type="submit">검색</button>
@@ -108,7 +112,7 @@
 				<table class="table table-hover">
 					<thead class="table-primary">
 						<tr>
-							<th>사원번호</th>
+							<th>NO</th>
 							<th>FIRST NAME</th>
 							<th>LAST NAME</th>
 						</tr>
@@ -133,14 +137,14 @@
 			<!-- 페이징처리 -->
 			<nav aria-label="Page navigation">
 				<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a class="page-link" aria-label="firstPage" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">
+						<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
 				<%
 					if(currentPage>rowPerPage){
 				%>
-						<li class="page-item">
-							<a class="page-link" aria-label="firstPage" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">
-							<span aria-hidden="true">&laquo;</span>
-							</a>
-						</li>
 						<li class="page-item">
 							<a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=startPage-1%>&search=<%=search%>">이전
 							</a>
@@ -161,14 +165,14 @@
 					if(currentPage<lastPage && rowPerPage<lastPage){
 				%>
 						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=endPage+1%>&search=<%=search%>">다음</a></li>
-						<li class="page-item">
-							<a class="page-link" aria-label="lastPage" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&search=<%=search%>">
-							<span aria-hidden="true">&raquo;</span>
-							</a>
-						</li>
 				<%
 					}
 				%>
+					<li class="page-item">
+						<a class="page-link" aria-label="lastPage" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&search=<%=search%>">
+						<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

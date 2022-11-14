@@ -9,7 +9,6 @@
 	if(request.getParameter("currentPage")!=null){	// 넘어온 값이 있다면
 		currentPage = Integer.parseInt(request.getParameter("currentPage")); 		
 	}
-	int searchPage = 1;
 	String search = "";
 	if(request.getParameter("search")!=null){
 		search = request.getParameter("search"); // 검색어
@@ -44,7 +43,7 @@
 	if(cnt%rowPerPage!=0){
 		lastPage+=1;
 	}
-	if(lastPage <= currentPage){ // 임의로 currentPage를 변경할 시에 접근 할 수 없게 방지
+	if(lastPage < currentPage){ // 임의로 currentPage를 변경할 시에 접근 할 수 없게 방지
 		currentPage = lastPage;
 	}
 	final int PAGE_COUNT = 10; // 하단에 보여질 페이지수 /final : 상수 (변경 불가한 변수, 변수이름 전부 대문자로 작성)
@@ -152,7 +151,7 @@
 		</div>
 		<br>
 		<!-- 3-2 페이징 처리 -->
-		<nav aria-label="Page navigation">
+		<div>
 			<ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&search=<%=search%>">처음</a></li>
 				<%
@@ -181,8 +180,7 @@
 				%>
 				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&search=<%=search%>">마지막</a></li>
 			</ul>
-		</nav>
-		</form>
+		</div>
 	</div>
 </body>
 </html>

@@ -28,7 +28,7 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include> 
 		</div>
-		<div><h1>ADD DEPT LIST</h1></div>
+		<div><h1>DEPT LIST</h1></div>
 		<div id="warning"><%=msg%></div>
 		<br>
 			<form action="<%=request.getContextPath()%>/dept/insertDeptAction.jsp" method="post">
@@ -45,7 +45,7 @@
 						<tr>
 							<td><input type="text" name="deptNo" placeholder="d001"></td>
 							<td><input type="text" name="deptName"></td>
-							<td><button type="submit" class="btn btn-outline-secondary cellBtn">ADD</button>
+							<td class="cellBtn"><button type="submit" class="btn btn-outline-secondary">등록</button>
 						</tr>
 					</tbody>
 				</table>

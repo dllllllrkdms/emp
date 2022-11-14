@@ -3,16 +3,17 @@
 <%@ page import="vo.Department" %>
 <%
 	// 1. 요청 분석
+	if(request.getParameter("deptNo") == null || request.getParameter("deptNo").equals("")){ // updateDeptForm.jsp를 주소창에 직접 호출하면 deptNo는 null이 된다.
+		response.sendRedirect(request.getContextPath()+"/dept/deptList.jsp"); 
+		return;
+	}
 	String deptNo = request.getParameter("deptNo");
 	//msg 파라메타 값
 	String msg = "";
 	if(request.getParameter("msg")!=null){
 		msg= "* " +request.getParameter("msg");
 	}
-	if(deptNo == null){ // updateDeptForm.jsp를 주소창에 직접 호출하면 deptNo는 null이 된다.
-		response.sendRedirect(request.getContextPath()+"/dept/updateDeptForm.jsp"); 
-		return;
-	}
+	
 
 	// 2. 요청 처리
 	Class.forName("org.mariadb.jdbc.Driver"); // 드라이버 로딩
@@ -75,7 +76,7 @@
 					<tr>
 						<td><input type="text" name="deptNo" value="<%=dept.deptNo%>" readonly=readonly class="read-only"></td>
 						<td><input type="text" name="deptName" value="<%=dept.deptName%>"></td>
-						<td><button type="submit" class="btn btn-outline-primary cellBtn">EDIT</button></td>
+						<td><button type="submit" class="btn btn-outline-primary cellBtn">등록</button></td>
 					</tr>
 				</tbody>
 			</table>

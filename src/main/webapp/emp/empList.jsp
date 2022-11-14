@@ -4,21 +4,30 @@
 <%@ page import="vo.*"%>
 <%
 	// 1. 요청분석
+	request.setCharacterEncoding("UTF-8");
+	String search = request.getParameter("search"); // 검색어
 	int currentPage = 1; // 기본값 : 1페이지
 	if(request.getParameter("currentPage")!=null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	
 	// 2. 요청처리
 	int rowPerPage = 10; // 한페이지당 볼 행의 개수
-	// 외부 드라이버 로딩
-	Class.forName("org.mariadb.jdbc.Driver");
+	int beginRow = (currentPage-1)*rowPerPage; // 
+	Class.forName("org.mariadb.jdbc.Driver"); // 외부 드라이버 로딩
 	//System.out.println("드라이버 로딩 성공");
-	// 데이터베이스 연결
-	Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/employees","root","java1234"); 
-	// lastPage 처리 쿼리 생성 
-	String countSql = "SELECT COUNT(*) FROM employees"; // *행의 개수를 출력
-	PreparedStatement countStmt = conn.prepareStatement(countSql);
+	Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/employees","root","java1234"); // 데이터베이스 연결
+	// 2-1 페이징 처리 쿼리 생성 
+	String countSql = null;
+	PreparedStatement countStmt = null;
+	if(search!=null){
+		countSql = "SELECT COUNT(*) FROM employees"; // *행의 개수를 출력
+		countStmt = conn.prepareStatement(countSql);
+	} else{
+		countSql = "SELECT COUNT(*) FROM employees WHERE first_name LIKE ? OR last_name LIKE ?"; // *행의 개수를 출력
+		countStmt = conn.prepareStatement(countSql);
+		countStmt.setString(1, "%"+search+"%");
+		countStmt.setString(2, "%"+search+"%");
+	}
 	ResultSet countRs = countStmt.executeQuery();
 	int count = 0;
 	if(countRs.next()){
@@ -38,12 +47,22 @@
 		endPage = lastPage; 
 	}
 	// 사원 목록 출력
-	String empSql = "SELECT emp_no empNo, birth_date birthDate, first_name firstName, last_name lastName, gender, hire_date hireDate FROM employees ORDER BY emp_no ASC LIMIT ?,?";
-	PreparedStatement empStmt = conn.prepareStatement(empSql);
-	empStmt.setInt(1, (currentPage-1)*rowPerPage);
-	empStmt.setInt(2, rowPerPage);
+	String empSql = null;
+	PreparedStatement empStmt = null;
+	if(search==null){
+		empSql = "SELECT emp_no empNo, birth_date birthDate, first_name firstName, last_name lastName, gender, hire_date hireDate FROM employees ORDER BY emp_no ASC LIMIT ?,?";
+		empStmt = conn.prepareStatement(empSql);
+		empStmt.setInt(1, beginRow);
+		empStmt.setInt(2, rowPerPage);
+	} else {
+		empSql = "SELECT emp_no empNo, birth_date birthDate, first_name firstName, last_name lastName, gender, hire_date hireDate FROM employees WHERE first_name LIKE ? OR last_name LIKE ? ORDER BY emp_no ASC LIMIT ?,?";
+		empStmt = conn.prepareStatement(empSql);
+		empStmt.setString(1, "%"+search+"%");
+		empStmt.setString(2, "%"+search+"%");
+		empStmt.setInt(3, beginRow);
+		empStmt.setInt(4, rowPerPage);
+	}
 	ResultSet empRs = empStmt.executeQuery(); // 쿼리 실행
-	
 	ArrayList<Employee> empList = new ArrayList<Employee>(); // 일반적인 타입으로 데이터 묶어두기
 	while(empRs.next()){
 		Employee emp = new Employee();
@@ -79,7 +98,12 @@
 				<jsp:include page="/inc/menu.jsp"></jsp:include>
 			</div>
 			<div><h1 style="text-align:center">EMP LIST</h1></div>
-			<br>
+			<div>
+				<form action="<%=request.getContextPath()%>/emp/empList.jsp" method="post">
+					<input type="text" name="search">
+					<button type="submit">검색</button>
+				</form>
+			</div>
 			<div id="div-table">
 				<table class="table table-hover">
 					<thead class="table-primary">
@@ -110,7 +134,7 @@
 			<nav aria-label="Page navigation">
 				<ul class="pagination justify-content-center">
 				<%
-					if(currentPage>1){
+					if(currentPage>rowPerPage){
 				%>
 						<li class="page-item">
 							<a class="page-link" aria-label="firstPage" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">
@@ -118,19 +142,27 @@
 							</a>
 						</li>
 						<li class="page-item">
-							<a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>">이전
+							<a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=startPage-1%>&search=<%=search%>">이전
 							</a>
 						</li>
 				<%
 					}
+					for(int i=startPage; i<=endPage; i++){
+						if(currentPage==i){
 				%>
-					<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage%>"><%=currentPage%></a></li>
-				<%	
-					if(currentPage<lastPage){
+							<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=i%>&search=<%=search%>"><%=i%></a></li>
+				<%
+						} else{
 				%>
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>">다음</a></li>
+							<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=i%>&search=<%=search%>"><%=i%></a></li>
+				<%
+						}
+					}
+					if(currentPage<lastPage && rowPerPage<lastPage){
+				%>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=endPage+1%>&search=<%=search%>">다음</a></li>
 						<li class="page-item">
-							<a class="page-link" aria-label="lastPage" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">
+							<a class="page-link" aria-label="lastPage" href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&search=<%=search%>">
 							<span aria-hidden="true">&raquo;</span>
 							</a>
 						</li>

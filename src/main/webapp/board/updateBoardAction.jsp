@@ -5,6 +5,7 @@
 <%@ page import="java.net.*"%>
 <%
 	// 1. 요청 분석
+	request.setCharacterEncoding("UTF-8");
 	if(request.getParameter("boardNo")==null){ // boardNo가 안넘어왔을 때 방어코드
 		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 		return;
@@ -15,7 +16,6 @@
 		response.sendRedirect(request.getContextPath()+"/board/updateBoardForm.jsp?boardNo="+request.getParameter("boardNo")+"&msg="+msg);
 		return;
 	}
-	request.setCharacterEncoding("UTF-8");
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 	String boardTitle = request.getParameter("boardTitle");
 	String boardContent = request.getParameter("boardContent");
@@ -35,6 +35,7 @@
 	String msg = "";
 	if(row==1){
 		System.out.println("수정 성공");
+		response.sendRedirect(request.getContextPath()+"/board/boardOne.jsp?boardNo="+boardNo);
 	}else{
 		System.out.println("수정 실패");
 		msg = URLEncoder.encode("다시 입력해주세요","UTF-8");

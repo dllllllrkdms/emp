@@ -5,11 +5,11 @@
 <%
 	// 1. 요청 분석
 	request.setCharacterEncoding("UTF-8");
-	if(request.getParameter("boardNo")==null || request.getParameter("boardNo").equals("")){
+	if(request.getParameter("boardNo")==null || request.getParameter("boardNo").equals("")){ // 방어코드
 		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 		return;
 	}
-	String msg="";
+	String msg=""; // 실패 메세지
 	if(request.getParameter("msg")!=null){
 		msg = request.getParameter("msg");
 	}
@@ -127,7 +127,7 @@
 					<td style="padding:5px 20px; border-top: hidden;"><%=board.boardWriter%></td>
 					<td style="padding:0px 20px; border-top: hidden;">&nbsp;</td>
 					<td style="padding:0px 20px; border-top: hidden;">&nbsp;</td>
-				</bortr>
+				</tr>
 				<tr>
 					<th>&nbsp;</th>
 					<td style="padding: 20px"><%=board.boardContent%></td>

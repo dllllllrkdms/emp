@@ -27,7 +27,7 @@
 .btn-outline-primary{
 	background-color: white;
 }
-d{
+th,td{
 	vertical-align: middle;
 }
 input:focus, textarea:focus{

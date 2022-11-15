@@ -104,7 +104,7 @@
 			<div><h1 style="text-align:center">EMP LIST</h1></div>
 			<div style="float:right">
 				<form action="<%=request.getContextPath()%>/emp/empList.jsp" method="post">
-					<input type="text" name="search">
+					<input type="text" name="search" value="<%=search%>" placeholder="이름을 입력하세요">
 					<button type="submit">검색</button>
 				</form>
 			</div>

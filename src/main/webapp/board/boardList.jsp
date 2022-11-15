@@ -21,7 +21,7 @@
 	Class.forName("org.mariadb.jdbc.Driver"); // 드라이버 로딩
 	Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/employees","root","java1234"); // db연결
 	
-	// 2-1 total row를 이용하여 lastPage 구하기
+	// 2-1 total row를 이용하여 lastPage 구하기(페이징)
 	String cntSql = null;
 	PreparedStatement cntStmt = null;
 	if(search==null){
@@ -53,9 +53,9 @@
 		endPage = lastPage;
 	}
 	
-	System.out.println("endPage="+endPage);
-	System.out.println("lastPage="+lastPage);
-	System.out.println("currentpage="+currentPage);
+	//System.out.println("endPage="+endPage);
+	//System.out.println("lastPage="+lastPage);
+	//System.out.println("currentpage="+currentPage);
 	// 2-2 모델데이터(ArrayList<Board>) 생성
 	String listSql = null;
 	PreparedStatement listStmt = null;
@@ -82,6 +82,7 @@
 		b.boardContent = listRs.getString("boardContent");
 		boardList.add(b);
 	}
+	
 	// 3. 결과출력
 %>
 <!DOCTYPE html>
@@ -109,7 +110,6 @@
 		<div>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
-		
 		<h1>자유 게시판</h1> 
 		<!-- 검색창 -->
 		<div style="float:right">

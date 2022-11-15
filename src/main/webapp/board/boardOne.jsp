@@ -166,28 +166,28 @@
 					}
 				%>	
 			</table>
-		</div>
-		<!-- 댓글 페이징 -->
-		<div>
-			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=1">처음</a></li>
-				<%
-					if(currentPage>1){
-				%>
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>">이전</a></li>
-				<%
-					}
-				%>
-					<li class="page-item"><a class="page-link active" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage%>"><%=currentPage%></a></li>
-				<%
-					if(currentPage<lastPage){
-				%>
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>">다음</a></li>
-				<%
-					}
-				%>
-				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=lastPage%>">마지막으로</a></li>
-			</ul>
+			<!-- 댓글 페이징 -->
+			<div>
+				<ul class="pagination justify-content-center">
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=1">처음</a></li>
+					<%
+						if(currentPage>1){
+					%>
+							<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>">이전</a></li>
+					<%
+						}
+					%>
+						<li class="page-item"><a class="page-link active" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage%>"><%=currentPage%></a></li>
+					<%
+						if(currentPage<lastPage){
+					%>
+							<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>">다음</a></li>
+					<%
+						}
+					%>
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=lastPage%>">마지막으로</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>

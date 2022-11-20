@@ -15,12 +15,12 @@
 	text-align:center;
 	width: 5%;
 }
-.read-only{
+.readonly{
 	border: 0;
 	box-shadow:none;
 	background-color:white;
 }
-.read-only:focus{
+.readonly:focus{
 	background-color: white;
 	outline : none;
 }

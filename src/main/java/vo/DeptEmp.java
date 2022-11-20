@@ -8,8 +8,32 @@ public class DeptEmp {
 	
 	// dept_emp테이블의 행뿐만 아니라 JOIN 결과 처리가능
 	// 복잡하다
-	public Employee emp;
-	public Department dept;
-	public String fromDate;
-	public String toDate;
+	private Employee emp;
+	private Department dept;
+	private String fromDate;
+	private String toDate;
+	public Employee getEmp() {
+		return emp;
+	}
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+	public Department getDept() {
+		return dept;
+	}
+	public void setDept(Department dept) {
+		this.dept = dept;
+	}
+	public String getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(String fromDate) {
+		this.fromDate = fromDate;
+	}
+	public String getToDate() {
+		return toDate;
+	}
+	public void setToDate(String toDate) {
+		this.toDate = toDate;
+	}
 }
